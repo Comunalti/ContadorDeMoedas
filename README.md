@@ -1,24 +1,28 @@
-
----
-
 # **Contador de Moedas - Node-RED**
 
 Este projeto é um contador de moedas automático utilizando Node-RED para o gerenciamento dos fluxos. Este guia aborda como configurar e rodar o ambiente de desenvolvimento no **Codespaces** do GitHub.
 
 ---
 
+## **Como criar um novo Codespace**
+1. Acesse o repositório no GitHub.
+2. Clique no botão **Code** e selecione a aba **Codespaces**.
+3. Clique em **Create Codespace on main** para criar um novo Codespace.
+
+---
+
 ## **Como rodar no ambiente de desenvolvimento (Codespaces)**
 
 ### **Passo 1: Configurar o ambiente**
-Para configurar o ambiente no **Codespaces**, execute o script `codespace.sh`. Ele instalará todas as dependências necessárias e preparará o Node-RED para execução.
+Após criar o Codespace, configure o ambiente executando o script `codespace.sh`. Este script instalará todas as dependências necessárias e iniciará o Node-RED automaticamente.
 
 No terminal do Codespace, rode:
 ```bash
 bash ./codespace.sh
 ```
 
-### **Passo 2: Iniciar o Node-RED**
-Após a configuração, use o script `start.sh` para iniciar o Node-RED com os fluxos do projeto:
+### **Passo 2: Reiniciar o Node-RED**
+Se precisar iniciar o Node-RED novamente após finalizá-lo, utilize o script `start.sh`:
 ```bash
 bash ./start.sh
 ```
