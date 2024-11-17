@@ -8,48 +8,221 @@
         "env": []
     },
     {
-        "id": "b606f36e6f17681c",
-        "type": "inject",
-        "z": "3c4dbd0503c1f8cb",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
+        "id": "dashboardGroup",
+        "type": "ui_group",
+        "name": "Dashboard",
+        "tab": "2e1880cd623c5423",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "mqttBroker",
+        "type": "mqtt-broker",
+        "name": "Ubidots",
+        "broker": "industrial.api.ubidots.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "2e1880cd623c5423",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "66f36466510eb256",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
             },
-            {
-                "p": "topic",
-                "vt": "str"
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
             }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 280,
-        "y": 260,
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "987929edbb62c99d",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "2e1880cd623c5423",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "sensor5c",
+        "type": "rpi-gpio in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Sensor 5 centavos",
+        "pin": "14",
+        "intype": "pullup",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 250,
+        "y": 280,
         "wires": [
             [
-                "a97d389b48e014fc"
+                "func5c",
+                "mqttOut"
             ]
         ]
     },
     {
-        "id": "a97d389b48e014fc",
-        "type": "debug",
+        "id": "func5c",
+        "type": "function",
         "z": "3c4dbd0503c1f8cb",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
+        "name": "Adiciona 5 centavos",
+        "func": "let total = global.get(\"carteira\") || 0;\ntotal += 0.05;\nglobal.set(\"carteira\", total);\nmsg.payload = total.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
         "y": 280,
+        "wires": [
+            [
+                "uiText"
+            ]
+        ]
+    },
+    {
+        "id": "uiText",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Valor Total",
+        "label": "Carteira",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 690,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "mqttOut",
+        "type": "mqtt out",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Publica no Ubidots",
+        "topic": "v1.6/devices/contador/carteira",
+        "qos": "0",
+        "retain": "false",
+        "broker": "mqttBroker",
+        "x": 690,
+        "y": 340,
         "wires": []
     }
 ]
