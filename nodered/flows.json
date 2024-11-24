@@ -154,6 +154,68 @@
         "className": ""
     },
     {
+        "id": "e236e69af325c94c",
+        "type": "mqtt-broker",
+        "name": "ubidots.stem",
+        "broker": "BBUS-Xw1epqDau8M72fbsPaoqDigwENAuXg",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4ef785eb28030b4b",
+        "type": "mqtt-broker",
+        "name": "aaaaa",
+        "broker": "industrial.api.ubidots.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
         "id": "sensor5c",
         "type": "rpi-gpio in",
         "z": "3c4dbd0503c1f8cb",
@@ -163,12 +225,11 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 250,
-        "y": 280,
+        "x": 210,
+        "y": 240,
         "wires": [
             [
-                "func5c",
-                "mqttOut"
+                "61033f643e011982"
             ]
         ]
     },
@@ -176,18 +237,21 @@
         "id": "func5c",
         "type": "function",
         "z": "3c4dbd0503c1f8cb",
-        "name": "Adiciona 5 centavos",
-        "func": "let total = global.get(\"carteira\") || 0;\ntotal += 0.05;\nglobal.set(\"carteira\", total);\nmsg.payload = total.toFixed(2);\nreturn msg;",
+        "name": "Adiciona dinheiro",
+        "func": "let total = global.get(\"valor\") || 0;\nlet contagem = global.get(`${msg.valor}`) || 0;\n\ntotal += msg.valor;\ncontagem += 1;\n\nglobal.set(\"valor\", total);\nglobal.set(`${msg.valor}`,contagem);\n\nmsg.payload = {\n    \"valor\":total.toFixed(2),\n    \"0.01\":global.get('0.01')||0,\n    \"0.05\":global.get('0.05')||0,\n    \"0.10\":global.get('0.1')||0,\n    \"0.25\":global.get('0.25')||0,\n    \"0.50\":global.get('0.5')||0,\n    \"1.00\":global.get('1')||0,\n}\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 280,
+        "x": 690,
+        "y": 300,
         "wires": [
             [
-                "uiText"
+                "uiText",
+                "20bce027e654397c",
+                "d19d9a8226bf3229"
             ]
         ]
     },
@@ -208,21 +272,470 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 690,
-        "y": 280,
+        "x": 970,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "mqttOut",
-        "type": "mqtt out",
+        "id": "20bce027e654397c",
+        "type": "ubidots_out",
         "z": "3c4dbd0503c1f8cb",
-        "name": "Publica no Ubidots",
-        "topic": "v1.6/devices/contador/carteira",
-        "qos": "0",
-        "retain": "false",
-        "broker": "mqttBroker",
-        "x": 690,
-        "y": 340,
+        "name": "",
+        "token": "BBUS-j9cBk1boMBRCRpqWx0mbE6jMdSkdg0",
+        "label_device": "",
+        "device_label": "carteira",
+        "tier": "business",
+        "tls_checkbox": false,
+        "x": 970,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "d19d9a8226bf3229",
+        "type": "debug",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "23a0564fb46a441b",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 320,
+        "wires": [
+            [
+                "61033f643e011982"
+            ]
+        ]
+    },
+    {
+        "id": "ce3d5eca680a59bd",
+        "type": "rpi-gpio in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Sensor 10 centavos",
+        "pin": "14",
+        "intype": "pullup",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 210,
+        "y": 380,
+        "wires": [
+            [
+                "020254092ecb3ac7"
+            ]
+        ]
+    },
+    {
+        "id": "d0c075b497630922",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 460,
+        "wires": [
+            [
+                "020254092ecb3ac7"
+            ]
+        ]
+    },
+    {
+        "id": "61033f643e011982",
+        "type": "change",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "0.05",
+        "rules": [
+            {
+                "t": "set",
+                "p": "valor",
+                "pt": "msg",
+                "to": "0.05",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "020254092ecb3ac7",
+        "type": "change",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "0.10",
+        "rules": [
+            {
+                "t": "set",
+                "p": "valor",
+                "pt": "msg",
+                "to": "0.10",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 420,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "4d7657abed327172",
+        "type": "rpi-gpio in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Sensor 25 centavos",
+        "pin": "14",
+        "intype": "pullup",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 210,
+        "y": 520,
+        "wires": [
+            [
+                "e074c76e2cf3115f"
+            ]
+        ]
+    },
+    {
+        "id": "a75219c9f440674d",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 600,
+        "wires": [
+            [
+                "e074c76e2cf3115f"
+            ]
+        ]
+    },
+    {
+        "id": "e074c76e2cf3115f",
+        "type": "change",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "0.25",
+        "rules": [
+            {
+                "t": "set",
+                "p": "valor",
+                "pt": "msg",
+                "to": "0.25",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 560,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "f09c392234532c91",
+        "type": "rpi-gpio in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Sensor 50 centavos",
+        "pin": "14",
+        "intype": "pullup",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 210,
+        "y": 660,
+        "wires": [
+            [
+                "aca286db1098e44c"
+            ]
+        ]
+    },
+    {
+        "id": "3a68a0673f2dc156",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 740,
+        "wires": [
+            [
+                "aca286db1098e44c"
+            ]
+        ]
+    },
+    {
+        "id": "aca286db1098e44c",
+        "type": "change",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "0.50",
+        "rules": [
+            {
+                "t": "set",
+                "p": "valor",
+                "pt": "msg",
+                "to": "0.50",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 700,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "c29deb193c32048e",
+        "type": "rpi-gpio in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Sensor 1 centavos",
+        "pin": "14",
+        "intype": "pullup",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "d253941adbd4632b"
+            ]
+        ]
+    },
+    {
+        "id": "47380482c0f638d9",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "d253941adbd4632b"
+            ]
+        ]
+    },
+    {
+        "id": "d253941adbd4632b",
+        "type": "change",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "0.01",
+        "rules": [
+            {
+                "t": "set",
+                "p": "valor",
+                "pt": "msg",
+                "to": "0.01",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "d89f46b9ed7e9008",
+        "type": "rpi-gpio in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "Sensor 1 real",
+        "pin": "14",
+        "intype": "pullup",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 230,
+        "y": 800,
+        "wires": [
+            [
+                "23d892780c06fbf8"
+            ]
+        ]
+    },
+    {
+        "id": "4e30d14b893e9cc1",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 880,
+        "wires": [
+            [
+                "23d892780c06fbf8"
+            ]
+        ]
+    },
+    {
+        "id": "23d892780c06fbf8",
+        "type": "change",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "1.00",
+        "rules": [
+            {
+                "t": "set",
+                "p": "valor",
+                "pt": "msg",
+                "to": "1.00",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 840,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "c8c787a0f28615f8",
+        "type": "inject",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "resetar",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [
+                "944d05cb9ff77232"
+            ]
+        ]
+    },
+    {
+        "id": "944d05cb9ff77232",
+        "type": "function",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "function 1",
+        "func": "global.set(\"valor\", 0);\n\nglobal.set(\"0.01\", 0);\nglobal.set(\"0.05\", 0);\nglobal.set(\"0.1\", 0);\nglobal.set(\"0.25\", 0);\nglobal.set(\"0.5\", 0);\nglobal.set(\"1\", 0);\n\nmsg.payload = \"valores resetados com sucesso\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 80,
+        "wires": [
+            [
+                "938415d82783ce5b"
+            ]
+        ]
+    },
+    {
+        "id": "938415d82783ce5b",
+        "type": "debug",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 80,
         "wires": []
     }
 ]

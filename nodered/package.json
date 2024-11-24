@@ -5,6 +5,8 @@
     "private": true,
     "dependencies": {
         "node-red-dashboard": "^3.6.5",
-        "node-red-node-pi-gpio": "^2.0.6"
+        "node-red-node-pi-gpio": "^2.0.6",
+        "ttb-node-ubidots": "~1.0.0",
+        "ubidots-nodered": "~2.0.2"
     }
 }

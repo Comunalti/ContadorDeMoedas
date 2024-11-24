@@ -687,5 +687,54 @@
                 "file": "/workspaces/ContadorDeMoedas/nodered/node_modules/node-red-node-pi-gpio/36-rpi-gpio.js"
             }
         }
+    },
+    "ubidots-nodered": {
+        "name": "ubidots-nodered",
+        "version": "2.0.2",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "ubidots_in": {
+                "name": "ubidots_in",
+                "types": [
+                    "ubidots_in"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "ubidots-nodered",
+                "file": "/workspaces/ContadorDeMoedas/nodered/node_modules/ubidots-nodered/ubidots/ubidots_in.js"
+            },
+            "ubidots_out": {
+                "name": "ubidots_out",
+                "types": [
+                    "ubidots_out"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "ubidots-nodered",
+                "file": "/workspaces/ContadorDeMoedas/nodered/node_modules/ubidots-nodered/ubidots/ubidots_out.js"
+            }
+        }
+    },
+    "ttb-node-ubidots": {
+        "name": "ttb-node-ubidots",
+        "version": "1.0.0",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "ubidots": {
+                "name": "ubidots",
+                "types": [
+                    "ubidots"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "ttb-node-ubidots",
+                "file": "/workspaces/ContadorDeMoedas/nodered/node_modules/ttb-node-ubidots/ubidots.js"
+            }
+        }
     }
 }
