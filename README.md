@@ -4,6 +4,35 @@ Este projeto é um contador de moedas automático utilizando Node-RED para o ger
 
 ---
 
+## **Informações do Desenvolvedor**
+- **Nome:** Felipe Rodrigues Peixoto da Silva  
+- **RA:** 21.00127-8  
+- **Email:** frps2003@gmail.com  
+
+---
+
+## **Dashboard**
+- **Dashboard em nuvem:** [Ubidots](https://industrial.ubidots.com/app/dashboards/public/dashboard/aWGpd9fVu4S_c_nXQOVJCA-BWf_V9TFoWDnYz80effA?navbar=true&contextbar=true&datePicker=true&devicePicker=true&displayTitle=true)  
+- **Dashboard local:** Acessível pelo Node-RED, desde que na mesma rede.
+
+---
+
+## **Lista de Materiais**
+| Quantidade | Item                           |
+|------------|--------------------------------|
+| 1          | Raspberry Pi 3                |
+| 1          | SD Card para memória           |
+| 1          | Fonte para a Raspberry Pi      |
+| 1          | Cabo para conectar na tomada   |
+| 1          | Teclado e mouse                |
+| 5          | Sensores IR                    |
+| Vários     | Jumpers                        |
+| 1          | Protoboard                     |
+| 1          | Impressão 3D                   |
+| Vários     | Parafusos                      |
+
+---
+
 ## **Como criar um novo Codespace**
 1. Acesse o repositório no GitHub.
 2. Clique no botão **Code** e selecione a aba **Codespaces**.
