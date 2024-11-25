@@ -55,7 +55,8 @@
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "darkTheme": {
                 "default": "#097479",
@@ -225,8 +226,8 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 210,
-        "y": 240,
+        "x": 230,
+        "y": 400,
         "wires": [
             [
                 "61033f643e011982"
@@ -238,20 +239,20 @@
         "type": "function",
         "z": "3c4dbd0503c1f8cb",
         "name": "Adiciona dinheiro",
-        "func": "let total = global.get(\"valor\") || 0;\nlet contagem = global.get(`${msg.valor}`) || 0;\n\ntotal += msg.valor;\ncontagem += 1;\n\nglobal.set(\"valor\", total);\nglobal.set(`${msg.valor}`,contagem);\n\nmsg.payload = {\n    \"valor\":total.toFixed(2),\n    \"0.01\":global.get('0.01')||0,\n    \"0.05\":global.get('0.05')||0,\n    \"0.10\":global.get('0.1')||0,\n    \"0.25\":global.get('0.25')||0,\n    \"0.50\":global.get('0.5')||0,\n    \"1.00\":global.get('1')||0,\n}\nreturn msg;",
+        "func": "let total = global.get(\"valor\") || 0;\n\nif(msg.valor){\n    let contagem = global.get(`${msg.valor}`) || 0;\n\n    total += msg.valor;\n    contagem += 1;\n\n    global.set(\"valor\", total);\n    global.set(`${msg.valor}`,contagem);\n}\nmsg.payload = {\n    \"valor\":total.toFixed(2),\n    \"0.01\":global.get('0.01')||0,\n    \"0.05\":global.get('0.05')||0,\n    \"0.10\":global.get('0.1')||0,\n    \"0.25\":global.get('0.25')||0,\n    \"0.50\":global.get('0.5')||0,\n    \"1.00\":global.get('1')||0,\n    \"0.01_porcentagem\":(100*global.get('0.01')||0)/global.get(\"maximo\"),\n    \"0.05_porcentagem\":(100*global.get('0.05')||0)/global.get(\"maximo\"),\n    \"0.10_porcentagem\":(100*global.get('0.1')||0)/global.get(\"maximo\"),\n    \"0.25_porcentagem\":(100*global.get('0.25')||0)/global.get(\"maximo\"),\n    \"0.50_porcentagem\":(100*global.get('0.5')||0)/global.get(\"maximo\"),\n    \"1.00_porcentagem\":(100*global.get('1')||0)/global.get(\"maximo\"),\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 300,
+        "x": 830,
+        "y": 660,
         "wires": [
             [
-                "uiText",
                 "20bce027e654397c",
-                "d19d9a8226bf3229"
+                "d19d9a8226bf3229",
+                "5a102cf02c2b6b71"
             ]
         ]
     },
@@ -264,16 +265,16 @@
         "width": 0,
         "height": 0,
         "name": "Valor Total",
-        "label": "Carteira",
-        "format": "{{msg.payload}}",
+        "label": "valor armazenado:",
+        "format": "{{msg.payload.valor}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 970,
-        "y": 300,
+        "x": 1420,
+        "y": 500,
         "wires": []
     },
     {
@@ -286,8 +287,8 @@
         "device_label": "carteira",
         "tier": "business",
         "tls_checkbox": false,
-        "x": 970,
-        "y": 380,
+        "x": 1050,
+        "y": 700,
         "wires": []
     },
     {
@@ -303,8 +304,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 960,
-        "y": 220,
+        "x": 1040,
+        "y": 620,
         "wires": []
     },
     {
@@ -318,8 +319,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 250,
-        "y": 320,
+        "x": 270,
+        "y": 480,
         "wires": [
             [
                 "61033f643e011982"
@@ -336,8 +337,8 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 210,
-        "y": 380,
+        "x": 230,
+        "y": 540,
         "wires": [
             [
                 "020254092ecb3ac7"
@@ -355,8 +356,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 250,
-        "y": 460,
+        "x": 270,
+        "y": 620,
         "wires": [
             [
                 "020254092ecb3ac7"
@@ -382,11 +383,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 280,
+        "x": 410,
+        "y": 440,
         "wires": [
             [
-                "func5c"
+                "5cd1f4f3848c3fad"
             ]
         ]
     },
@@ -409,11 +410,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 420,
+        "x": 410,
+        "y": 580,
         "wires": [
             [
-                "func5c"
+                "5cd1f4f3848c3fad"
             ]
         ]
     },
@@ -427,8 +428,8 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 210,
-        "y": 520,
+        "x": 230,
+        "y": 680,
         "wires": [
             [
                 "e074c76e2cf3115f"
@@ -446,8 +447,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 250,
-        "y": 600,
+        "x": 270,
+        "y": 760,
         "wires": [
             [
                 "e074c76e2cf3115f"
@@ -473,11 +474,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 560,
+        "x": 410,
+        "y": 720,
         "wires": [
             [
-                "func5c"
+                "5cd1f4f3848c3fad"
             ]
         ]
     },
@@ -491,8 +492,8 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 210,
-        "y": 660,
+        "x": 230,
+        "y": 820,
         "wires": [
             [
                 "aca286db1098e44c"
@@ -510,8 +511,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 250,
-        "y": 740,
+        "x": 270,
+        "y": 900,
         "wires": [
             [
                 "aca286db1098e44c"
@@ -537,11 +538,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 700,
+        "x": 410,
+        "y": 860,
         "wires": [
             [
-                "func5c"
+                "5cd1f4f3848c3fad"
             ]
         ]
     },
@@ -555,8 +556,8 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 210,
-        "y": 100,
+        "x": 230,
+        "y": 260,
         "wires": [
             [
                 "d253941adbd4632b"
@@ -574,8 +575,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 250,
-        "y": 180,
+        "x": 270,
+        "y": 340,
         "wires": [
             [
                 "d253941adbd4632b"
@@ -601,11 +602,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 140,
+        "x": 410,
+        "y": 300,
         "wires": [
             [
-                "func5c"
+                "5cd1f4f3848c3fad"
             ]
         ]
     },
@@ -619,8 +620,8 @@
         "debounce": "25",
         "read": false,
         "bcm": true,
-        "x": 230,
-        "y": 800,
+        "x": 250,
+        "y": 960,
         "wires": [
             [
                 "23d892780c06fbf8"
@@ -638,8 +639,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 250,
-        "y": 880,
+        "x": 270,
+        "y": 1040,
         "wires": [
             [
                 "23d892780c06fbf8"
@@ -665,11 +666,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 840,
+        "x": 410,
+        "y": 1000,
         "wires": [
             [
-                "func5c"
+                "5cd1f4f3848c3fad"
             ]
         ]
     },
@@ -694,8 +695,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 610,
-        "y": 80,
+        "x": 650,
+        "y": 500,
         "wires": [
             [
                 "944d05cb9ff77232"
@@ -706,19 +707,20 @@
         "id": "944d05cb9ff77232",
         "type": "function",
         "z": "3c4dbd0503c1f8cb",
-        "name": "function 1",
-        "func": "global.set(\"valor\", 0);\n\nglobal.set(\"0.01\", 0);\nglobal.set(\"0.05\", 0);\nglobal.set(\"0.1\", 0);\nglobal.set(\"0.25\", 0);\nglobal.set(\"0.5\", 0);\nglobal.set(\"1\", 0);\n\nmsg.payload = \"valores resetados com sucesso\"\n\nreturn msg;",
+        "name": "reseta",
+        "func": "global.set(\"valor\", 0);\n\nglobal.set(\"0.01\", 0);\nglobal.set(\"0.05\", 0);\nglobal.set(\"0.1\", 0);\nglobal.set(\"0.25\", 0);\nglobal.set(\"0.5\", 0);\nglobal.set(\"1\", 0);\n\nmsg.message = \"valores resetados com sucesso\"\nmsg.payload = {\n    \"valor\":global.get('valor')||0,\n    \"0.01\":global.get('0.01')||0,\n    \"0.05\":global.get('0.05')||0,\n    \"0.10\":global.get('0.1')||0,\n    \"0.25\":global.get('0.25')||0,\n    \"0.50\":global.get('0.5')||0,\n    \"1.00\":global.get('1')||0,\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 80,
+        "x": 810,
+        "y": 520,
         "wires": [
             [
-                "938415d82783ce5b"
+                "938415d82783ce5b",
+                "2fd0d02cc417b79c"
             ]
         ]
     },
@@ -731,11 +733,476 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "message",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 880,
-        "y": 80,
+        "x": 1040,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "963ef7c387d63a92",
+        "type": "ubidots_in",
+        "z": "3c4dbd0503c1f8cb",
+        "tier": "business",
+        "name": "Ubidots in",
+        "token": "BBUS-j9cBk1boMBRCRpqWx0mbE6jMdSkdg0",
+        "device_label": "carteira",
+        "tls_checkbox_in": false,
+        "custom_topic_checkbox": false,
+        "label_variable_1": "maximo",
+        "label_variable_2": "",
+        "label_variable_3": "",
+        "label_variable_4": "",
+        "label_variable_5": "",
+        "label_variable_6": "",
+        "label_variable_7": "",
+        "label_variable_8": "",
+        "label_variable_9": "",
+        "label_variable_10": "",
+        "checkbox_variable_1_last_value": true,
+        "checkbox_variable_2_last_value": true,
+        "checkbox_variable_3_last_value": true,
+        "checkbox_variable_4_last_value": true,
+        "checkbox_variable_5_last_value": true,
+        "checkbox_variable_6_last_value": true,
+        "checkbox_variable_7_last_value": true,
+        "checkbox_variable_8_last_value": true,
+        "checkbox_variable_9_last_value": true,
+        "checkbox_variable_10_last_value": true,
+        "x": 660,
+        "y": 880,
+        "wires": [
+            [
+                "41d76185799365a4"
+            ]
+        ]
+    },
+    {
+        "id": "fb68d0ad596f9462",
+        "type": "function",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "seta o maximo globalmente",
+        "func": "global.set(\"maximo\",msg.payload);\nmsg.payload=`o valor de maximo é ${msg.payload}`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 900,
+        "wires": [
+            [
+                "0c4050c1836fdd06"
+            ]
+        ]
+    },
+    {
+        "id": "77d0792639dfe76f",
+        "type": "debug",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "b450dd81eadce18d",
+        "type": "ui_button",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "group": "dashboardGroup",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Resetar",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 640,
+        "y": 540,
+        "wires": [
+            [
+                "944d05cb9ff77232"
+            ]
+        ]
+    },
+    {
+        "id": "ac74605206eb896e",
+        "type": "ui_numeric",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "label": "valor maximo:",
+        "tooltip": "",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "99",
+        "step": 1,
+        "className": "",
+        "x": 780,
+        "y": 940,
+        "wires": [
+            [
+                "b2ac403bc784c96a"
+            ]
+        ]
+    },
+    {
+        "id": "6d2b2021cfcf109c",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "quantidade de moedas de 1 centavo",
+        "label": "quantidade de moedas de 1 centavo:",
+        "format": "{{msg.payload[\"0.01\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1500,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "aa0c276235e3acb0",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "quantidade de moedas de 5 centavos",
+        "label": "quantidade de moedas de 5 centavos:",
+        "format": "{{msg.payload[\"0.05\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1500,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "cf2a352ff7903201",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "quantidade de moedas de 10 centavos",
+        "label": "quantidade de moedas de 10 centavos:",
+        "format": "{{msg.payload[\"0.10\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1500,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "4277520e5a3b6de8",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "quantidade de moedas de 25 centavos",
+        "label": "quantidade de moedas de 25 centavos:",
+        "format": "{{msg.payload[\"0.25\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1500,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "24bdd403d41590de",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "quantidade de moedas de 50 centavos",
+        "label": "quantidade de moedas de 50 centavos:",
+        "format": "{{msg.payload[\"0.50\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1500,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "48fe0e54b8b42059",
+        "type": "ui_text",
+        "z": "3c4dbd0503c1f8cb",
+        "group": "987929edbb62c99d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "quantidade de moedas 1 real",
+        "label": "quantidade de moedas de 1 real:",
+        "format": "{{msg.payload[\"1.00\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1470,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "831de17dd2d960bc",
+        "type": "link in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link in 1",
+        "links": [
+            "5a102cf02c2b6b71"
+        ],
+        "x": 1215,
+        "y": 500,
+        "wires": [
+            [
+                "uiText",
+                "6d2b2021cfcf109c",
+                "aa0c276235e3acb0",
+                "cf2a352ff7903201",
+                "4277520e5a3b6de8",
+                "24bdd403d41590de",
+                "48fe0e54b8b42059",
+                "3ee093d3c33bfc65"
+            ]
+        ]
+    },
+    {
+        "id": "5a102cf02c2b6b71",
+        "type": "link out",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "831de17dd2d960bc"
+        ],
+        "x": 995,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "0c4050c1836fdd06",
+        "type": "link out",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "54304dda185a8295"
+        ],
+        "x": 1365,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "54304dda185a8295",
+        "type": "link in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link in 2",
+        "links": [
+            "0c4050c1836fdd06"
+        ],
+        "x": 675,
+        "y": 700,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "fe8f2a749a8c1e45",
+        "type": "link in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link in 3",
+        "links": [
+            "2fd0d02cc417b79c"
+        ],
+        "x": 675,
+        "y": 620,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "2fd0d02cc417b79c",
+        "type": "link out",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "fe8f2a749a8c1e45"
+        ],
+        "x": 995,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "5cd1f4f3848c3fad",
+        "type": "link out",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "88f1ec52dfe5b532"
+        ],
+        "x": 565,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "88f1ec52dfe5b532",
+        "type": "link in",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "link in 4",
+        "links": [
+            "5cd1f4f3848c3fad"
+        ],
+        "x": 675,
+        "y": 660,
+        "wires": [
+            [
+                "func5c"
+            ]
+        ]
+    },
+    {
+        "id": "41d76185799365a4",
+        "type": "function",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "recebe ubidots",
+        "func": "msg.payload=msg.payload.maximo.value\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 880,
+        "wires": [
+            [
+                "ac74605206eb896e",
+                "fb68d0ad596f9462",
+                "77d0792639dfe76f"
+            ]
+        ]
+    },
+    {
+        "id": "3d8ace619b80db27",
+        "type": "ubidots_out",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "token": "BBUS-j9cBk1boMBRCRpqWx0mbE6jMdSkdg0",
+        "label_device": "",
+        "device_label": "carteira",
+        "tier": "business",
+        "tls_checkbox": false,
+        "x": 910,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b2ac403bc784c96a",
+        "type": "function",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "trasnforma para ubidots",
+        "func": "msg.payload = {\n    maximo:msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 1000,
+        "wires": [
+            [
+                "3d8ace619b80db27"
+            ]
+        ]
+    },
+    {
+        "id": "3ee093d3c33bfc65",
+        "type": "ui_gauge",
+        "z": "3c4dbd0503c1f8cb",
+        "name": "",
+        "group": "dashboardGroup",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{msg.payload[\"0.01_porcentagem\"]}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1430,
+        "y": 360,
         "wires": []
     }
 ]
